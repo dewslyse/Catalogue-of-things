@@ -3,7 +3,7 @@ class Label
   attr_accessor :title, :color
 
   def initialize(id, title, color)
-    super(id)
+    @id = id
     @title = title
     @color = color
     @items = []
