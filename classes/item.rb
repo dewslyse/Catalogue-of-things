@@ -20,7 +20,7 @@ class Item
 
   def add_author(author)
     @author = author
-    author.items << self unless author.items.include?(self)
+    author.add_item << self unless author.add_item.include?(self)
   end
 
   def add_genre(genre)
