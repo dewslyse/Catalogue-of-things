@@ -1,16 +1,16 @@
 class Label
-  attr_accessor :title, :color, :items
-  attr_reader :id
+  attr_reader :id, :items
+  attr_accessor :title, :color
 
   def initialize(id, title, color)
-    @id = id
+    super(id)
     @title = title
     @color = color
     @items = []
   end
 
   def add_item(item)
-    @items.push(item)
-    item.add_label = self
+    @item = item
+    item.label << self
   end
 end
