@@ -8,6 +8,10 @@ describe Book do
       @book3 = Book.new('2018-10-06', 'Penguin', 'bad')
     end
 
+    it 'returns child of Item' do
+      expect(@book1).to be_kind_of(Item)
+    end
+
     it 'returns instance of Book' do
       expect(@book1).to be_instance_of(Book)
     end
