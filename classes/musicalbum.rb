@@ -8,6 +8,5 @@ class MusicAlbum
 
   def can_be_archived?
     @item.can_be_archived? && @on_spotify
-    
   end
 end
