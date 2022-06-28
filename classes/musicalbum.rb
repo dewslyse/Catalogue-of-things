@@ -1,7 +1,9 @@
 require './classes/item'
 
 class MusicAlbum
-  def initialize(on_spotify: true)
+  attr_reader :on_spotify
+
+  def initialize(on_spotify)
     @on_spotify = on_spotify
     @item = Item.new
   end
