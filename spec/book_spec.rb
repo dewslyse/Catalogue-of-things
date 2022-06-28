@@ -3,9 +3,9 @@ require_relative '../classes/book'
 describe Book do
   context 'Testing Book class' do
     before :each do
-      @book1 = Book.new(12, '2010-03-14', 'Cambridge', 'good')
-      @book2 = Book.new(16, '2020-01-24', 'Oxford', 'good')
-      @book3 = Book.new(18, '2018-10-06', 'Penguin', 'bad')
+      @book1 = Book.new('2010-03-14', 'Cambridge', 'good')
+      @book2 = Book.new('2020-01-24', 'Oxford', 'good')
+      @book3 = Book.new('2018-10-06', 'Penguin', 'bad')
     end
 
     it 'returns instance of Book' do
