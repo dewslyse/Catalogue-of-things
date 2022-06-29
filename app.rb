@@ -1,12 +1,16 @@
 require_relative './classes/book'
 require_relative './classes/musicalbum'
+require_relative 'store'
 
 class App
-  attr_reader :all_books, :all_albums
+  attr_reader :all_books, :all_albums, :published_date
 
   def initialize
     @all_books = []
     @all_albums = []
+    @store = Store.new
+
+    load_albums
   end
 
   def list_books
@@ -27,9 +31,7 @@ class App
     if @all_albums.length.zero?
       puts 'Music Album list is empty. Choose option (8) to add an album'
     else
-      @all_albums.each do |album|
-        puts "Publication Date: #{album.published_date}, On Spotify: #{album.on_spotify}"
-      end
+      puts(@all_albums.map { |album| puts "Published_date: #{album[:published_date]}. On_spotify: #{album[:on_spotify]}" })
     end
   end
 
@@ -51,8 +53,20 @@ class App
     print 'Date of publication [yyyy-mm-dd]: '
     published_date = gets.chomp
     id = Random.rand(1..1000)
-    new_album = MusicAlbum.new(id, published_date)
+    new_album = MusicAlbum.new(id, published_date).album_to_json
     @all_albums.push(new_album)
+    @store.store_albums(@all_albums.to_json)
     puts 'Music Album added successfully!'
+  end
+
+  def load_albums
+    file = File.open('./Data/albums_data.json')
+    file_data = file.read
+    if file_data == ''
+      @all_albums = []
+    else
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      @all_albums = convert_to_array
+    end
   end
 end

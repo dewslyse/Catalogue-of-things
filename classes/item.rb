@@ -1,7 +1,7 @@
 require 'date'
 
 class Item
-  attr_reader :id, :archived
+  attr_reader :id, :archived, :published_date
   attr_accessor :author, :genre, :label
 
   def initialize(id, published_date, archived: false)
@@ -31,5 +31,9 @@ class Item
   def add_label(label)
     @label = label
     label.items << self unless label.items.include?(self)
+  end
+
+  def album_to_json
+    { published_date: @published_date, on_spotify: @on_spotify }
   end
 end
