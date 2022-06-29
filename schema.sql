@@ -1,4 +1,3 @@
-
 CREATE TABLE "Items"
 (
     id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -7,17 +6,19 @@ CREATE TABLE "Items"
     source "char",
     label "char",
     publish_date date,
-    archived boolean,
+    archived boolean
 );
 
 CREATE TABLE "Genre"
 (
-    id integer,
+    id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name "char",
-    PRIMARY KEY (id)
 );
 
 CREATE TABLE "MusicAlbum"
 (
+    id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    genre "char",
+    publish_date date,
     on_spotify boolean
 );
