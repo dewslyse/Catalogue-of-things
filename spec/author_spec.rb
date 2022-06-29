@@ -3,7 +3,8 @@ require_relative '../classes/item'
 
 describe Author do
   before :each do
-    @author = Author.new('Amina','Buhari')
+    @author = Author.new('Amina', 'Buhari')
+    @item = Item.new('2001-02-03')
   end
   describe '#new' do
     it 'takes two parameter and returns a Author object' do
@@ -13,20 +14,18 @@ describe Author do
 
   describe '#author' do
     it 'returns the correct author first name' do
-    @author.first_name.should eql 'Amina'
+      @author.first_name.should eql 'Amina'
     end
   end
 
   describe '#author' do
-  it 'returns the correct author last name' do
-  @author.last_name.should eql 'Buhari'
+    it 'returns the correct author last name' do
+      @author.last_name.should eql 'Buhari'
+    end
   end
- end
 
- it 'should this' do
-    published_date = '2022-03-05'
-    multiplayer = "Amina"
-    cr = Game.new(published_date, multiplayer)
-    expect(cr.correct_name).to be name
+  it 'checks if author has an instance of item' do
+    @author.add_item(@item)
+    expect (@author.items).should include @item
   end
 end
