@@ -1,5 +1,5 @@
+require_relative 'item'
 require 'date'
-require_relative './Item'
 
 class Game < Item
   attr_accessor :multiplayer, :published_date
