@@ -1,16 +1,16 @@
-class Label
-  attr_reader :id, :items
-  attr_accessor :title, :color
+# class Label
+#   attr_reader :id, :items
+#   attr_accessor :title, :color
 
-  def initialize(id, title, color)
-    @id = id
-    @title = title
-    @color = color
-    @items = []
-  end
+#   def initialize(id, title, color)
+#     @id = id
+#     @title = title
+#     @color = color
+#     @items = []
+#   end
 
-  def add_item(item)
-    @item = item
-    item.label << self
-  end
-end
+#   def add_item(item)
+#     @item = item
+#     item.label << self
+#   end
+# end

@@ -15,4 +15,6 @@ describe Game do
     @game.multiplayer.should eql 'multiplayer'
     end
   end
+
+  
 end
