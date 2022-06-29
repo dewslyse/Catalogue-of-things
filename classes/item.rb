@@ -32,8 +32,4 @@ class Item
     @label = label
     label.items << self unless label.items.include?(self)
   end
-
-  def album_to_json
-    { genre: @genre, published_date: @published_date, on_spotify: @on_spotify }
-  end
 end

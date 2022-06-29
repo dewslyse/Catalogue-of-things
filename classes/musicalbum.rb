@@ -16,4 +16,8 @@ class MusicAlbum < Item
     @item = Item.new
     @item.can_be_archived? && @on_spotify
   end
+
+  def album_to_json
+    { genre: @genre, published_date: @published_date, on_spotify: @on_spotify }
+  end
 end
