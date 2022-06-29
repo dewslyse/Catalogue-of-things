@@ -8,4 +8,12 @@ class Store
   def store_genres(obj)
     File.write('./Data/genres_data.json', obj)
   end
+
+  def store_books(obj)
+    File.write('./data/books_data.json', obj)
+  end
+
+  def store_labels(obj)
+    File.write('./data/labels_data.json', obj)
+  end
 end
