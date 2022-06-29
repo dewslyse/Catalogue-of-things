@@ -30,6 +30,5 @@ class Item
 
   def add_label(label)
     @label = label
-    label.items << self unless label.items.include?(self)
   end
 end
