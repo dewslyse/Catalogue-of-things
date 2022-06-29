@@ -14,6 +14,7 @@ class App
 
     load_albums
     load_genres
+    load_books
   end
 
   def list_books
@@ -22,8 +23,8 @@ class App
     if @all_books.length.zero?
       puts 'Book list is empty. Choose option (7) to add a book'
     else
-      @all_books.each do |book|
-        puts "Publication Date: #{book.published_date}, Publisher: #{book.publisher}, State: #{book.cover_state}"
+      @all_books.map do |book|
+        puts "Publication Date: #{book[:published_date]}, Publisher: #{book[:publisher]}, State: #{book[:cover_state]}"
       end
     end
   end
@@ -60,8 +61,9 @@ class App
     publisher = gets.chomp
     print "Cover state (Enter 'good' or 'bad'): "
     cover_state = gets.chomp
-    new_book = Book.new(published_date, publisher, cover_state)
+    new_book = Book.new(published_date, publisher, cover_state).book_to_json
     @all_books.push(new_book)
+    @store.store_books(@all_books.to_json)
     puts 'Book added successfully!'
   end
 
@@ -100,6 +102,17 @@ class App
     else
       convert_to_array = JSON.parse(file_data, symbolize_names: true)
       @all_genres = convert_to_array
+    end
+  end
+
+  def load_books
+    file = File.open('./data/books_data.json')
+    file_data = file.read
+    if file_data == ''
+      @all_books = []
+    else
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      @all_books = convert_to_array
     end
   end
 end
