@@ -34,3 +34,12 @@ class Item
     label.items << self unless label.items.include?(self)
   end
 end
+
+puts Date.parse('2010-03-14')
+book1 = Item.new('2018-03-14')
+puts book1
+# puts book1.id
+puts book1.published_date
+# puts book1.publisher
+# puts book1.cover_state
+print book1.can_be_archived?
