@@ -12,4 +12,8 @@ class Genre
     @items.push(item)
     item.add_genre = self
   end
+
+  def genre_to_json
+    { name: @name }
+  end
 end

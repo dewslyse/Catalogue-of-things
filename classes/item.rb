@@ -25,7 +25,6 @@ class Item
 
   def add_genre(genre)
     @genre = genre
-    genre.items << self unless genre.items.include?(self)
   end
 
   def add_label(label)
@@ -34,6 +33,6 @@ class Item
   end
 
   def album_to_json
-    { published_date: @published_date, on_spotify: @on_spotify }
+    { genre: @genre, published_date: @published_date, on_spotify: @on_spotify }
   end
 end

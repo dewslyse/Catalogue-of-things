@@ -1,10 +1,11 @@
 require './classes/item'
 
 class MusicAlbum < Item
-  attr_reader :on_spotify, :published_date
+  attr_reader :on_spotify, :published_date, :genre
 
-  def initialize(id, published_date, on_spotify: true)
+  def initialize(id, genre, published_date, on_spotify: true)
     super(id, published_date)
+    add_genre(genre)
     @on_spotify = on_spotify
   end
 
