@@ -72,7 +72,7 @@ class App
     print 'Date of publication [yyyy-mm-dd]: '
     published_date = gets.chomp
     id = Random.rand(1..1000)
-    new_album = MusicAlbum.new(id, genre, published_date).album_to_json
+    new_album = MusicAlbum.new(genre, published_date).album_to_json
     new_genre = Genre.new(id, genre).genre_to_json
     @all_albums.push(new_album)
     @all_genres.push(new_genre)
