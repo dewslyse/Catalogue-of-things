@@ -2,16 +2,17 @@ require 'date'
 
 class Item
   attr_reader :id, :archived
-  attr_accessor :genre, :label, :published_date, :author
+  attr_accessor :author, :genre, :label, :published_date
 
   def initialize(published_date, archived: false)
     @id = id
     @published_date = Date.parse(published_date)
+    @current_year = DateTime.now.year
     @archived = archived
   end
 
   def can_be_archived?
-    DateTime.now.year - @published_date > 10
+    (@current_year - @published_date.year) > 10
   end
 
   def move_to_archive
@@ -33,3 +34,12 @@ class Item
     label.items << self unless label.items.include?(self)
   end
 end
+
+puts Date.parse('2010-03-14')
+book1 = Item.new('2018-03-14')
+puts book1
+# puts book1.id
+puts book1.published_date
+# puts book1.publisher
+# puts book1.cover_state
+print book1.can_be_archived?
