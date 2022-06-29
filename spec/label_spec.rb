@@ -4,7 +4,7 @@ require_relative '../classes/item'
 describe Label do
   context 'Testing Label class' do
     before :each do
-      @label = Label.new(23, 'Atomic Habits', 'White')
+      @label = Label.new('Atomic Habits', 'White')
       @item = Item.new('2020-03-12')
     end
 
