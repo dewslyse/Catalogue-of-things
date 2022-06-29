@@ -1,19 +1,23 @@
 require_relative './classes/book'
+require_relative './classes/label'
 require_relative './classes/musicalbum'
 require_relative 'store'
 require_relative './classes/genre'
 
 class App
-  attr_reader :all_books, :all_albums, :published_date, :all_genres, :genre
+  attr_reader :all_books, :all_labels, :all_albums, :published_date, :all_genres, :genre
 
   def initialize
     @all_books = []
+    @all_labels = []
     @all_albums = []
     @all_genres = []
     @store = Store.new
 
     load_albums
     load_genres
+    load_books
+    load_labels
   end
 
   def list_books
@@ -22,8 +26,20 @@ class App
     if @all_books.length.zero?
       puts 'Book list is empty. Choose option (7) to add a book'
     else
-      @all_books.each do |book|
-        puts "Publication Date: #{book.published_date}, Publisher: #{book.publisher}, State: #{book.cover_state}"
+      @all_books.map do |book|
+        puts "Publication Date: #{book[:published_date]}, Publisher: #{book[:publisher]}, State: #{book[:cover_state]}"
+      end
+    end
+  end
+
+  def list_labels
+    puts "\nAll Labels"
+
+    if @all_labels.length.zero?
+      puts 'No labels found. Choose option (7) to add a book with label'
+    else
+      @all_labels.map do |label|
+        puts "Title: #{label[:title]}, Color: #{label[:color]}"
       end
     end
   end
@@ -34,9 +50,9 @@ class App
     if @all_albums.length.zero?
       puts 'Music Album list is empty. Choose option (8) to add an album'
     else
-      puts(@all_albums.map do |album|
-             puts "Genre: #{album[:genre]} Published_date: #{album[:published_date]} On_spotify: #{album[:on_spotify]}"
-           end)
+      @all_albums.map do |album|
+        puts "Genre: #{album[:genre]} Published_date: #{album[:published_date]} On_spotify: #{album[:on_spotify]}"
+      end
     end
   end
 
@@ -46,23 +62,31 @@ class App
     if @all_genres.length.zero?
       puts 'Music Album list is empty. Choose option (8) to add an album'
     else
-      puts(@all_genres.map do |genre|
-             puts "Genre: #{genre[:name]}"
-           end)
+      @all_genres.map do |genre|
+        puts "Genre: #{genre[:name]}"
+      end
     end
   end
 
   def add_book
     puts "\nAdd a book"
+    print 'Title: '
+    title = gets.chomp
+    print 'Color: '
+    color = gets.chomp
     print 'Date of publication [yyyy-mm-dd]: '
     published_date = gets.chomp
     print 'Publisher: '
     publisher = gets.chomp
     print "Cover state (Enter 'good' or 'bad'): "
     cover_state = gets.chomp
-    new_book = Book.new(published_date, publisher, cover_state)
+    new_book = Book.new(title, published_date, publisher, cover_state).book_to_json
+    new_label = Label.new(title, color).label_to_json
     @all_books.push(new_book)
-    puts 'Book added successfully!'
+    @all_labels.push(new_label)
+    @store.store_books(@all_books.to_json)
+    @store.store_labels(@all_labels.to_json)
+    puts 'Book and Label added successfully!'
   end
 
   def add_album
@@ -100,6 +124,28 @@ class App
     else
       convert_to_array = JSON.parse(file_data, symbolize_names: true)
       @all_genres = convert_to_array
+    end
+  end
+
+  def load_books
+    file = File.open('./data/books_data.json')
+    file_data = file.read
+    if file_data == ''
+      @all_books = []
+    else
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      @all_books = convert_to_array
+    end
+  end
+
+  def load_labels
+    file = File.open('./data/labels_data.json')
+    file_data = file.read
+    if file_data == ''
+      @all_labels = []
+    else
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      @all_labels = convert_to_array
     end
   end
 end
