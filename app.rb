@@ -15,6 +15,7 @@ class App
     @all_labels = []
     @all_albums = []
     @all_genres = []
+    @all_author = []
     @store = Store.new
 
     load_albums
@@ -159,7 +160,7 @@ class App
     print 'Has parent permission? [Y/N]:'
     multiplayer = gets.chomp
     new_game = Game.new(published_date, multiplayer).game_to_json
-    @all_games.push(new_album)
+    @all_games.push(new_game)
     @store.store_games(@all_games.to_json)
     puts 'Games added successfully!'
 
@@ -175,4 +176,17 @@ class App
       @all_games = convert_to_array
     end
   end
+
+  def add_author
+    puts "\nAdd an author"
+    print 'First Name: '
+    first_name = gets.chomp
+    print 'Last Name: '
+    last_name = gets.chomp
+    new_author= Author.new(title, published_date, publisher, cover_state).author_to_json
+    @all_author.push(new_author)
+    @store.store_author(@all_author.to_json)
+    puts 'Author added successfully!'
+  end
+
 end
