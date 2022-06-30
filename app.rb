@@ -162,5 +162,8 @@ class App
     @all_games.push(new_album)
     @store.store_games(@all_games.to_json)
     puts 'Games added successfully!'
+
   end
+
+  
 end
