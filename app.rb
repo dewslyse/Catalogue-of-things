@@ -165,5 +165,14 @@ class App
 
   end
 
-  
+  def load_games
+    file = File.open('./Data/game_data.json')
+    file_data = file.read
+    if file_data == ''
+      @all_games = []
+    else
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      @all_games = convert_to_array
+    end
+  end
 end
