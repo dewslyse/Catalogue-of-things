@@ -22,6 +22,8 @@ class App
     load_genres
     load_books
     load_labels
+    load_games
+    load_author
   end
 
   def list_books
@@ -187,6 +189,17 @@ class App
     @all_author.push(new_author)
     @store.store_author(@all_author.to_json)
     puts 'Author added successfully!'
+  end
+
+  def load_author
+    file = File.open('./Data/author_data.json')
+    file_data = file.read
+    if file_data == ''
+      @all_author = []
+    else
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      @all_author = convert_to_array
+    end
   end
 
 end
