@@ -3,12 +3,15 @@ require_relative './classes/label'
 require_relative './classes/musicalbum'
 require_relative 'store'
 require_relative './classes/genre'
+require_relative './classes/games'
+require_relative './classes/author'
 
 class App
   attr_reader :all_books, :all_labels, :all_albums, :published_date, :all_genres, :genre
 
   def initialize
     @all_books = []
+    @all_games = []
     @all_labels = []
     @all_albums = []
     @all_genres = []
@@ -147,5 +150,17 @@ class App
       convert_to_array = JSON.parse(file_data, symbolize_names: true)
       @all_labels = convert_to_array
     end
+  end
+
+  def add_game
+    puts "\nAdd a game"
+    print 'Date of publication [yyyy-mm-dd]: '
+    published_date = gets.chomp
+    print 'Has parent permission? [Y/N]:'
+    multiplayer = gets.chomp
+    new_game = Game.new(published_date, multiplayer).game_to_json
+    @all_games.push(new_album)
+    @store.store_games(@all_games.to_json)
+    puts 'Games added successfully!'
   end
 end
