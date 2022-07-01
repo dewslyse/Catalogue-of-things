@@ -2,7 +2,7 @@ require_relative '../classes/games'
 
 describe Game do
   before :each do
-    @game = Game.new('2010-03-05', 'multiplayer')
+    @game = Game.new('author', '2010-03-05', 'multiplayer')
   end
 
   describe '#new' do
@@ -14,6 +14,12 @@ describe Game do
   describe '#multiplayer' do
     it 'returns the correct multiplayer name' do
       expect(@game.multiplayer).to eq 'multiplayer'
+    end
+  end
+
+  describe '#author' do
+    it 'returns the correct author name' do
+      expect(@game.author).to eq 'author'
     end
   end
 

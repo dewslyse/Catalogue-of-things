@@ -15,4 +15,8 @@ class Author
     @items.push(item)
     item.author = self
   end
+
+  def author_to_json
+    { first_name: @first_name, last_name: @last_name }
+  end
 end
