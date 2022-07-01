@@ -88,7 +88,7 @@ class App
     cover_state = gets.chomp
     
     new_label = Label.new(title, color).label_to_json
-    new_book = Book.new(new_label, new_author, published_date, publisher, cover_state).book_to_json
+    new_book = Book.new(new_label, published_date, publisher, cover_state).book_to_json
   
     
     @all_books.push(new_book)
