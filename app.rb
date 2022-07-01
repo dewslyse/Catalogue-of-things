@@ -88,7 +88,7 @@ class App
     cover_state = gets.chomp
 
     new_label = Label.new(title, color).label_to_json
-    new_book = Book.new(new_label, published_date, publisher, cover_state).book_to_json
+    new_book = Book.new(label, published_date, publisher, cover_state).book_to_json
 
     @all_books.push(new_book)
     @all_labels.push(new_label)
@@ -170,7 +170,7 @@ class App
     print 'Last Name: '
     last_name = gets.chomp
     new_author = Author.new(first_name, last_name).author_to_json
-    new_game = Game.new(new_author, published_date, multiplayer).game_to_json
+    new_game = Game.new(author, published_date, multiplayer).game_to_json
     @all_games.push(new_game)
     @all_author.push(new_author)
     @store.store_games(@all_games.to_json)
@@ -184,7 +184,7 @@ class App
     if file_data == ''
       @all_games = []
     else
-      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      convert_to_array = JSON.pretty_generate(file_data, symbolize_names: true)
       @all_games = convert_to_array
     end
   end
@@ -207,7 +207,7 @@ class App
     if file_data == ''
       @all_author = []
     else
-      convert_to_array = JSON.pretty_generate(file_data, symbolize_names: true)
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
       @all_author = convert_to_array
     end
   end
