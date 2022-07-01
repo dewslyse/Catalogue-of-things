@@ -94,9 +94,8 @@ class App
       @all_games.map do |game|
         puts "Publication Date: #{game[:published_date]}, Multiplayer: #{game[:multiplayer]}"
       end
+    end
   end
-
-end
 
   def add_book
     puts "\nAdd a book"
@@ -200,8 +199,6 @@ end
     end
   end
 
-  
-
   def load_games
     file = File.open('./Data/game_data.json')
     file_data = file.read
@@ -223,6 +220,4 @@ end
       @all_author = convert_to_array
     end
   end
-
-  
 end

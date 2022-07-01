@@ -23,7 +23,6 @@ describe Game do
     end
   end
 
-
   it 'checks if book can be archived' do
     expect(@game.can_be_archived?).to eq false
   end
