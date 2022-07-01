@@ -2,7 +2,7 @@ require_relative '../classes/games'
 
 describe Game do
   before :each do
-    @game = Game.new('2010-03-05', 'multiplayer')
+    @game = Game.new('tafara', '2010-03-05', 'multiplayer')
   end
 
   describe '#new' do
