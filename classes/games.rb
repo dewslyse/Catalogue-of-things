@@ -7,9 +7,9 @@ class Game < Item
 
   def initialize(author, published_date, multiplayer)
     super(published_date)
-    add_author(author)
     @multiplayer = multiplayer
     @last_played_at = DateTime.now.year
+    add_author(author)
   end
 
   def can_be_archived?

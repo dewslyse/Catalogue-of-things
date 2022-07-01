@@ -74,6 +74,30 @@ class App
     end
   end
 
+  def list_author
+    puts "\nAll authors"
+
+    if @all_author.length.zero?
+      puts 'Author is empty. Choose option (9) to add an author'
+    else
+      @all_author.map do |author|
+        puts "First Name: #{author[:first_name]}, Last Name: #{author[:last_name]}"
+      end
+    end
+  end
+
+  def list_games
+    puts "\nAll Games"
+    if @all_games.length.zero?
+      puts 'Game list is empty. Choose option (9) to add a game'
+    else
+      @all_games.map do |game|
+        puts "Publication Date: #{game[:published_date]}, Multiplayer: #{game[:multiplayer]}"
+      end
+  end
+
+end
+
   def add_book
     puts "\nAdd a book"
     print 'Title: '
@@ -86,10 +110,8 @@ class App
     publisher = gets.chomp
     print "Cover state (Enter 'good' or 'bad'): "
     cover_state = gets.chomp
-
     new_label = Label.new(title, color).label_to_json
-    new_book = Book.new(label, published_date, publisher, cover_state).book_to_json
-
+    new_book = Book.new(title, published_date, publisher, cover_state).book_to_json
     @all_books.push(new_book)
     @all_labels.push(new_label)
     @store.store_books(@all_books.to_json)
@@ -112,6 +134,26 @@ class App
     @store.store_albums(@all_albums.to_json)
     @store.store_genres(@all_genres.to_json)
     puts 'Music Album added successfully!'
+  end
+
+  def add_game
+    puts "\nAdd a game"
+    print 'Date of publication [yyyy-mm-dd]: '
+    published_date = gets.chomp
+    print 'Has multiplayer? [Y/N]:'
+    multiplayer = gets.chomp
+    puts "\nAdd an author"
+    print 'First Name: '
+    first_name = gets.chomp
+    print 'Last Name: '
+    last_name = gets.chomp
+    new_author = Author.new(first_name, last_name).author_to_json
+    new_game = Game.new(first_name, published_date, multiplayer).game_to_json
+    @all_games.push(new_game)
+    @all_author.push(new_author)
+    @store.store_games(@all_games.to_json)
+    @store.store_author(@all_author.to_json)
+    puts 'Games and Author added successfully!'
   end
 
   def load_albums
@@ -158,25 +200,7 @@ class App
     end
   end
 
-  def add_game
-    puts "\nAdd a game"
-    print 'Date of publication [yyyy-mm-dd]: '
-    published_date = gets.chomp
-    print 'Has parent permission? [Y/N]:'
-    multiplayer = gets.chomp
-    puts "\nAdd an author"
-    print 'First Name: '
-    first_name = gets.chomp
-    print 'Last Name: '
-    last_name = gets.chomp
-    new_author = Author.new(first_name, last_name).author_to_json
-    new_game = Game.new(author, published_date, multiplayer).game_to_json
-    @all_games.push(new_game)
-    @all_author.push(new_author)
-    @store.store_games(@all_games.to_json)
-    @store.store_author(@all_author.to_json)
-    puts 'Games and Author added successfully!'
-  end
+  
 
   def load_games
     file = File.open('./Data/game_data.json')
@@ -186,18 +210,6 @@ class App
     else
       convert_to_array = JSON.pretty_generate(file_data, symbolize_names: true)
       @all_games = convert_to_array
-    end
-  end
-
-  def list_author
-    puts "\nAll authors"
-
-    if @all_author.length.zero?
-      puts 'Author is empty. Choose option (9) to add an author'
-    else
-      @all_author.map do |author|
-        puts "First Name: #{author[:first_name]}, Last Name: #{author[:last_name]}"
-      end
     end
   end
 
@@ -212,15 +224,5 @@ class App
     end
   end
 
-  def list_games
-      puts "\nAll Games"
-      if @all_games.length.zero?
-        puts 'Game list is empty. Choose option (9) to add a game'
-      else
-        @all_games.map do |game|
-          puts "Publication Date: #{game[:published_date]}, Multiplayer: #{game[:multiplayer]}"
-        end
-    end
-
-  end
+  
 end
