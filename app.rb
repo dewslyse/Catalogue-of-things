@@ -205,7 +205,7 @@ class App
     if file_data == ''
       @all_games = []
     else
-      convert_to_array = JSON.pretty_generate(file_data, symbolize_names: true)
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
       @all_games = convert_to_array
     end
   end
