@@ -8,7 +8,7 @@ class Book < Item
     super(published_date)
     @id = rand(1..1000)
     add_label(label)
-    
+
     @publisher = publisher
     @cover_state = cover_state
   end

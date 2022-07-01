@@ -1,6 +1,6 @@
 require 'date'
 
-class Author 
+class Author
   attr_reader :id, :items
   attr_accessor :first_name, :last_name
 
@@ -17,6 +17,6 @@ class Author
   end
 
   def author_to_json
-    { first_name: @first_name, last_name: @last_name}
+    { first_name: @first_name, last_name: @last_name }
   end
 end

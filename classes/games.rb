@@ -5,7 +5,7 @@ class Game < Item
   attr_accessor :multiplayer, :published_date
   attr_reader :last_played_at
 
-  def initialize(author,published_date, multiplayer)
+  def initialize(author, published_date, multiplayer)
     super(published_date)
     add_author(author)
     @multiplayer = multiplayer
@@ -18,6 +18,6 @@ class Game < Item
   end
 
   def game_to_json
-    {  author: @author, published_date: @published_date, multiplayer: @multiplayer }
+    { author: @author, published_date: @published_date, multiplayer: @multiplayer }
   end
 end
