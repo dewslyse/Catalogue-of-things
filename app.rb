@@ -212,4 +212,16 @@ class App
       @all_author = convert_to_array
     end
   end
+
+  def list_games
+      puts "\nAll Games"
+      if @all_games.length.zero?
+        puts 'Game list is empty. Choose option (9) to add a game'
+      else
+        @all_games.map do |game|
+          puts "Publication Date: #{game[:published_date]}, Multiplayer: #{game[:multiplayer]}"
+        end
+    end
+
+  end
 end
