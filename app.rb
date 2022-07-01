@@ -7,7 +7,7 @@ require_relative './classes/games'
 require_relative './classes/author'
 
 class App
-  attr_reader :all_books, :all_labels, :all_albums, :published_date, :all_genres, :genre
+  attr_reader :all_books, :all_labels, :all_albums, :published_date, :all_genres, :genre, :all_author, :all_games
 
   def initialize
     @all_books = []
@@ -170,7 +170,6 @@ class App
     print 'Last Name: '
     last_name = gets.chomp
     new_author = Author.new(first_name, last_name).author_to_json
-
     new_game = Game.new(new_author, published_date, multiplayer).game_to_json
     @all_games.push(new_game)
     @all_author.push(new_author)
@@ -208,7 +207,7 @@ class App
     if file_data == ''
       @all_author = []
     else
-      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      convert_to_array = JSON.pretty_generate(file_data, symbolize_names: true)
       @all_author = convert_to_array
     end
   end
