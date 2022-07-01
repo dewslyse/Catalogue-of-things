@@ -4,10 +4,11 @@ class Book < Item
   attr_reader :publisher, :cover_state
   attr_accessor :published_date
 
-  def initialize(label, published_date, publisher, cover_state)
+  def initialize(label, author, published_date, publisher, cover_state)
     super(published_date)
     @id = rand(1..1000)
     add_label(label)
+    add_author(author)
     @publisher = publisher
     @cover_state = cover_state
   end
@@ -17,6 +18,6 @@ class Book < Item
   end
 
   def book_to_json
-    { title: @label, published_date: @published_date, publisher: @publisher, cover_state: @cover_state }
+    { title: @label, author: @author, published_date: @published_date, publisher: @publisher, cover_state: @cover_state }
   end
 end

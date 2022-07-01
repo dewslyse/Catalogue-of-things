@@ -23,7 +23,6 @@ class App
     load_books
     load_labels
     load_games
-    load_author
   end
 
   def list_books
@@ -91,9 +90,10 @@ class App
     first_name = gets.chomp
     print 'Last Name: '
     last_name = gets.chomp
-    new_book = Book.new(title, published_date, publisher, cover_state).book_to_json
     new_label = Label.new(title, color).label_to_json
-    new_author= Author.new(title, published_date, publisher, cover_state).author_to_json
+    new_author= Author.new(first_name, last_name).author_to_json
+    new_book = Book.new(new_label, new_author, published_date, publisher, cover_state).book_to_json
+  
    
     
     @all_books.push(new_book)
@@ -154,16 +154,8 @@ class App
     end
   end
 
-  def load_labels
-    file = File.open('./data/labels_data.json')
-    file_data = file.read
-    if file_data == ''
-      @all_labels = []
-    else
-      convert_to_array = JSON.parse(file_data, symbolize_names: true)
-      @all_labels = convert_to_array
-    end
-  end
+  
+
 
   def add_game
     puts "\nAdd a game"
@@ -189,17 +181,32 @@ class App
     end
   end
 
- 
+  def list_author
+    puts "\nAll authors"
 
+    if @all_author.length.zero?
+      puts 'Author is empty. Choose option (1) to add an author'
+    else
+      @all_author.map do |author|
+        puts "First Name: #{author[:first_name]}"
+      end
+    end
+  end
+
+  
   def load_author
-    file = File.open('./Data/author_data.json')
+    file = File.open('./data/author_data.json')
     file_data = file.read
     if file_data == ''
-      @all_author = []
+      @all_authour = []
     else
       convert_to_array = JSON.parse(file_data, symbolize_names: true)
       @all_author = convert_to_array
     end
   end
+
+ 
+
+  
 
 end
