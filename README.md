@@ -4,6 +4,8 @@
 
 > In this project, we built a console app that helps keep a record of different types of things one owns: books, music albums, movies, and games. All data is stored in JSON files.
 
+## Screenshot
+![uml-diagram](https://user-images.githubusercontent.com/66526480/176852955-4fb37c08-6527-4bea-a960-151359db6222.PNG)
 
 ## Built With
 
