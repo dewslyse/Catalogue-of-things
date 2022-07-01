@@ -23,6 +23,7 @@ class App
     load_books
     load_labels
     load_games
+    load_author
   end
 
   def list_books
@@ -85,24 +86,17 @@ class App
     publisher = gets.chomp
     print "Cover state (Enter 'good' or 'bad'): "
     cover_state = gets.chomp
-    puts "\nAdd an author"
-    print 'First Name: '
-    first_name = gets.chomp
-    print 'Last Name: '
-    last_name = gets.chomp
+    
     new_label = Label.new(title, color).label_to_json
-    new_author= Author.new(first_name, last_name).author_to_json
     new_book = Book.new(new_label, new_author, published_date, publisher, cover_state).book_to_json
   
-   
     
     @all_books.push(new_book)
     @all_labels.push(new_label)
-    @all_author.push(new_author)
     @store.store_books(@all_books.to_json)
     @store.store_labels(@all_labels.to_json)
-    @store.store_author(@all_author.to_json)
-    puts 'Book, Author and Label added successfully!'
+
+    puts 'Book and Label added successfully!'
   end
 
   def add_album
@@ -154,8 +148,16 @@ class App
     end
   end
 
-  
-
+  def load_labels
+    file = File.open('./data/labels_data.json')
+    file_data = file.read
+    if file_data == ''
+      @all_labels = []
+    else
+      convert_to_array = JSON.parse(file_data, symbolize_names: true)
+      @all_labels = convert_to_array
+    end
+  end
 
   def add_game
     puts "\nAdd a game"
@@ -163,10 +165,21 @@ class App
     published_date = gets.chomp
     print 'Has parent permission? [Y/N]:'
     multiplayer = gets.chomp
-    new_game = Game.new(published_date, multiplayer).game_to_json
+    puts "\nAdd an author"
+    print 'First Name: '
+    first_name = gets.chomp
+    print 'Last Name: '
+    last_name = gets.chomp
+    new_author= Author.new(first_name, last_name).author_to_json
+     
+   
+   
+    new_game = Game.new(new_author,published_date, multiplayer).game_to_json
     @all_games.push(new_game)
+    @all_author.push(new_author)
     @store.store_games(@all_games.to_json)
-    puts 'Games added successfully!'
+    @store.store_author(@all_author.to_json)
+    puts 'Games and Author added successfully!'
 
   end
 
@@ -185,10 +198,10 @@ class App
     puts "\nAll authors"
 
     if @all_author.length.zero?
-      puts 'Author is empty. Choose option (1) to add an author'
+      puts 'Author is empty. Choose option (9) to add an author'
     else
       @all_author.map do |author|
-        puts "First Name: #{author[:first_name]}"
+        puts "First Name: #{author[:first_name]}, Last Name: #{author[:last_name]}"
       end
     end
   end
@@ -198,7 +211,7 @@ class App
     file = File.open('./data/author_data.json')
     file_data = file.read
     if file_data == ''
-      @all_authour = []
+      @all_author = []
     else
       convert_to_array = JSON.parse(file_data, symbolize_names: true)
       @all_author = convert_to_array
