@@ -50,5 +50,10 @@ CREATE TABLE author (
     last_name TEXT
 );
 
+CREATE TABLE author (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    first_name TEXT,
+    last_name TEXT
+);
 
 
